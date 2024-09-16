@@ -3,14 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makku.APCMini.MK2", "Makku.APCMini.MK2\Makku.APCMini.MK2.csproj", "{77DA137E-F429-4F6E-B584-5FD7E72C9369}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.APCMini.MK2", "Makku.APCMini.MK2\Makku.APCMini.MK2.csproj", "{77DA137E-F429-4F6E-B584-5FD7E72C9369}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makku.MIDI", "Makku.MIDI\Makku.MIDI.csproj", "{F1524C76-D35B-4E1C-A2DC-B461A1358E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.MIDI", "Makku.MIDI\Makku.MIDI.csproj", "{F1524C76-D35B-4E1C-A2DC-B461A1358E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makku.MIDIPad", "Makku.MIDIPad\Makku.MIDIPad.csproj", "{71D1C099-7C5F-4E83-ABED-5B55EAFC21A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.MIDIPad", "Makku.MIDIPad\Makku.MIDIPad.csproj", "{71D1C099-7C5F-4E83-ABED-5B55EAFC21A7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{77DA137E-F429-4F6E-B584-5FD7E72C9369} = {77DA137E-F429-4F6E-B584-5FD7E72C9369}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makku.MIDIPad.Voicemeeter", "Makku.MIDIPad.Voicemeeter\Makku.MIDIPad.Voicemeeter.csproj", "{E05F22C7-57A7-4888-8CE8-92F3402C2DFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makku.MIDIPad.Core", "Makku.MIDIPad.Core\Makku.MIDIPad.Core.csproj", "{41CB97C1-9A17-4308-925D-81679A1757AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +34,14 @@ Global
 		{71D1C099-7C5F-4E83-ABED-5B55EAFC21A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71D1C099-7C5F-4E83-ABED-5B55EAFC21A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71D1C099-7C5F-4E83-ABED-5B55EAFC21A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E05F22C7-57A7-4888-8CE8-92F3402C2DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E05F22C7-57A7-4888-8CE8-92F3402C2DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E05F22C7-57A7-4888-8CE8-92F3402C2DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E05F22C7-57A7-4888-8CE8-92F3402C2DFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41CB97C1-9A17-4308-925D-81679A1757AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41CB97C1-9A17-4308-925D-81679A1757AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41CB97C1-9A17-4308-925D-81679A1757AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41CB97C1-9A17-4308-925D-81679A1757AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

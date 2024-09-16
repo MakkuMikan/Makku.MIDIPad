@@ -42,6 +42,11 @@ public class MatrixPadState
         return new MatrixPadState(PadState.OneHundredPercent, value, colour);
     }
 
+    public MatrixPadState WithBehaviour(FourBitNumber behaviour)
+    {
+        return new MatrixPadState(behaviour, Value, Colour);
+    }
+
     public NoteOnEvent ToNoteOnEvent()
     {
         return new NoteOnEvent(Value, Colour)
@@ -50,27 +55,9 @@ public class MatrixPadState
         };
     }
 
-    public NoteOffEvent ToNoteOffEvent()
-    {
-        return new NoteOffEvent(Value, SevenBitNumber.MinValue)
-        {
-            Channel = Behaviour
-        };
-    }
-
     public static implicit operator NoteOnEvent(MatrixPadState matrixPadState)
     {
         return matrixPadState.ToNoteOnEvent();
-    }
-
-    public static implicit operator NoteOffEvent(MatrixPadState matrixPadState)
-    {
-        return matrixPadState.ToNoteOffEvent();
-    }
-
-    public static NoteOffEvent CreateNoteOffEvent(SevenBitNumber note)
-    {
-        return new NoteOffEvent(note, SevenBitNumber.MinValue);
     }
 }
 

@@ -8,6 +8,9 @@ namespace Makku.MIDI
         private readonly InputDevice _inputDevice;
         private readonly OutputDevice _outputDevice;
 
+        public event EventHandler<NoteOnEventArgs> NoteOnEvent;
+        public event EventHandler<NoteOffEventArgs> NoteOffEvent;
+
         public MIDIDeviceService(string deviceName, string? outputDeviceName = null)
         {
             _inputDevice = InputDevice.GetByName(deviceName);
@@ -24,32 +27,47 @@ namespace Makku.MIDI
 
         protected virtual void StartEventsListening()
         {
-            _inputDevice.EventReceived += (sender, e) =>
-            {
-                OnEventReceived((MidiDevice)sender!, e.Event);
-            };
+            _inputDevice.EventReceived += OnEventReceived;
 
             _inputDevice.StartEventsListening();
         }
 
         protected virtual void StartEventsSending()
         {
-            _outputDevice.EventSent += (sender, e) =>
+            _outputDevice.EventSent += OnEventSent;
+        }
+
+        protected void OnEventReceived(object? sender, MidiEventReceivedEventArgs midiEvent)
+        {
+            switch (midiEvent.Event)
             {
-                OnEventSent((MidiDevice)sender!, e.Event);
-            };
+                case NoteOnEvent noteOnEvent:
+                    NoteOnEvent?.Invoke(this, new NoteOnEventArgs(noteOnEvent));
+                    break;
+                case NoteOffEvent noteOffEvent:
+                    NoteOffEvent?.Invoke(this, new NoteOffEventArgs(noteOffEvent));
+                    break;
+            }
         }
 
-        protected virtual void OnEventReceived(MidiDevice sender, MidiEvent midiEvent)
+        protected virtual void OnEventSent(object? sender, MidiEventSentEventArgs midiEvent)
         {
-        }
-
-        protected virtual void OnEventSent(MidiDevice sender, MidiEvent midiEvent)
-        {
+            switch (midiEvent.Event)
+            {
+                case NoteOnEvent noteOnEvent:
+                    Console.WriteLine(noteOnEvent.Channel);
+                    Console.WriteLine(noteOnEvent.NoteNumber);
+                    Console.WriteLine(noteOnEvent.Velocity);
+                    break;
+            }
         }
 
         public void Dispose()
         {
+            _inputDevice.EventReceived -= OnEventReceived;
+            _inputDevice.StopEventsListening();
+            _outputDevice.EventSent -= OnEventSent;
+
             _inputDevice.Dispose();
             _outputDevice.Dispose();
 

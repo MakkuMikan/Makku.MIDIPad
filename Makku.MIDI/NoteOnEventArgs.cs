@@ -1,6 +1,6 @@
 ﻿using Melanchall.DryWetMidi.Core;
 
-namespace Makku.APCMini.MK2
+namespace Makku.MIDI
 {
     public class NoteOnEventArgs : EventArgs
     {

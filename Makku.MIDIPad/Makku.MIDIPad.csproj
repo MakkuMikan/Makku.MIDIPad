@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -13,5 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Makku.APCMini.MK2\Makku.APCMini.MK2.csproj" />
+    <ProjectReference Include="..\Makku.MIDIPad.Core\Makku.MIDIPad.Core.csproj" />
+    <ProjectReference Include="..\Makku.MIDIPad.Voicemeeter\Makku.MIDIPad.Voicemeeter.csproj" />
   </ItemGroup>
 </Project>
