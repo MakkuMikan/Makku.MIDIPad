@@ -3,13 +3,13 @@ using Melanchall.DryWetMidi.Multimedia;
 
 namespace Makku.MIDI
 {
-    public abstract class MIDIDeviceService : IMIDIDeviceService
+    public abstract class MIDIDeviceService : IMIDIService, INoteHandleService
     {
         private readonly InputDevice _inputDevice;
         private readonly OutputDevice _outputDevice;
 
-        public event EventHandler<NoteOnEventArgs> NoteOnEvent;
-        public event EventHandler<NoteOffEventArgs> NoteOffEvent;
+        public event EventHandler<NoteOnEventArgs>? NoteOnEvent;
+        public event EventHandler<NoteOffEventArgs>? NoteOffEvent;
 
         public MIDIDeviceService(string deviceName, string? outputDeviceName = null)
         {
@@ -20,7 +20,7 @@ namespace Makku.MIDI
             StartEventsSending();
         }
 
-        protected void SendEvent(MidiEvent midiEvent)
+        public void SendEvent(MidiEvent midiEvent)
         {
             _outputDevice.SendEvent(midiEvent);
         }
@@ -62,7 +62,7 @@ namespace Makku.MIDI
             }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _inputDevice.EventReceived -= OnEventReceived;
             _inputDevice.StopEventsListening();

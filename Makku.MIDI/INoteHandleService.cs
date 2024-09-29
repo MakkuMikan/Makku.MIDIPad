@@ -1,7 +1,7 @@
 ﻿
 namespace Makku.MIDI
 {
-    public interface IMIDIDeviceService : IDisposable
+    public interface INoteHandleService : IDisposable
     {
         event EventHandler<NoteOffEventArgs> NoteOffEvent;
         event EventHandler<NoteOnEventArgs> NoteOnEvent;

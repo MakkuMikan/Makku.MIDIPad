@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Makku.APCMini.MK2\Makku.APCMini.MK2.csproj" />
-    <ProjectReference Include="..\Makku.MIDI.APCMiniMk2\Makku.MIDI.APCMiniMk2.csproj" />
     <ProjectReference Include="..\Makku.MIDI.LED\Makku.MIDI.LED.csproj" />
-    <ProjectReference Include="..\Makku.MIDI.Pad\Makku.MIDI.Pad.csproj" />
   </ItemGroup>
 
 </Project>

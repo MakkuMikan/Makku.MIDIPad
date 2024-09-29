@@ -1,18 +1,15 @@
-﻿using Makku.APCMini.MK2;
-using Makku.APCMini.MK2.Constants;
-using Makku.APCMini.MK2.Helpers;
+﻿using Makku.MIDI.APCMiniMk2;
 using Makku.MIDIPad.Core;
 using Makku.MIDIPad.Voicemeeter.Helpers;
 using Melanchall.DryWetMidi.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Makku.MIDI.Pad;
+using Makku.MIDI.SingleLED;
+using Makku.MIDI.ExtendedLED;
+using Makku.MIDI.APCMiniMk2.Constants;
 
 namespace Makku.MIDIPad.Voicemeeter;
 
-public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage) : BasePage(APCMini, ChangePage)
+public class VoicemeeterPage<TService>(TService APCMini, Action<IBasePage> ChangePage) : BasePage<SevenBitNumber, SevenBitNumber, TService>(APCMini, ChangePage) where TService : IExtendedLEDService<SevenBitNumber, SevenBitNumber, FourBitNumber>, ISingleLEDService<SevenBitNumber, SevenBitNumber>, IPadService<SevenBitNumber>
 {
     private VoicemeeterHelper Voicemeeter;
 
@@ -20,6 +17,101 @@ public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage
     private readonly SLEDStates SLEDStates = [];
 
     private bool Disposed = false;
+
+    private static PadScheme HeadphoneScheme = new()
+    {
+        OnState = new PadState
+        {
+            Colour = Colour.Orange,
+            Behaviour = Behaviour.OneHundredPercent
+        },
+        OffState = new PadState
+        {
+            Colour = Colour.Orange,
+            Behaviour = Behaviour.TenPercent
+        }
+    };
+
+    private static PadScheme SpeakerScheme = new()
+    {
+        OnState = new PadState
+        {
+            Colour = Colour.Yellow,
+            Behaviour = Behaviour.OneHundredPercent
+        },
+        OffState = new PadState
+        {
+            Colour = Colour.Yellow,
+            Behaviour = Behaviour.TenPercent
+        }
+    };
+
+    private static PadScheme MicScheme = new()
+    {
+        OnState = new PadState
+        {
+            Colour = Colour.LightBlue,
+            Behaviour = Behaviour.OneHundredPercent
+        },
+        OffState = new PadState
+        {
+            Colour = Colour.LightBlue,
+            Behaviour = Behaviour.TenPercent
+        }
+    };
+
+    private static PadScheme AltMicScheme = new()
+    {
+        OnState = new PadState
+        {
+            Colour = Colour.BrightPurple,
+            Behaviour = Behaviour.OneHundredPercent
+        },
+        OffState = new PadState
+        {
+            Colour = Colour.BrightPurple,
+            Behaviour = Behaviour.TenPercent
+        }
+    };
+
+    private static PadScheme RecordScheme = new()
+    {
+        OnState = new PadState
+        {
+            Colour = Colour.BrightMagenta,
+            Behaviour = Behaviour.OneHundredPercent
+        },
+        OffState = new PadState
+        {
+            Colour = Colour.BrightMagenta,
+            Behaviour = Behaviour.TenPercent
+        }
+    };
+
+    private static PadScheme MuteScheme = new()
+    {
+        OnState = new PadState
+        {
+            Colour = Colour.BrightRed,
+            Behaviour = Behaviour.OneHundredPercent
+        },
+        OffState = new PadState
+        {
+            Colour = Colour.BrightGreen,
+            Behaviour = Behaviour.OneHundredPercent
+        }
+    };
+
+    protected override Pads Pads { get; } = [
+        new(Button.A8, Colour.BrightGreen),
+
+        new(Button.A6, HeadphoneScheme),    new(Button.B6, HeadphoneScheme),    new(Button.C6, HeadphoneScheme),    new(Button.D6, HeadphoneScheme),    new(Button.E6, HeadphoneScheme),
+        new(Button.A5, SpeakerScheme),      new(Button.B5, SpeakerScheme),      new(Button.C5, SpeakerScheme),      new(Button.D5, SpeakerScheme),      new(Button.E5, SpeakerScheme),
+        new(Button.A4, MicScheme),          new(Button.B4, MicScheme),          new(Button.C4, MicScheme),          new(Button.D4, MicScheme),          new(Button.E4, MicScheme),
+        new(Button.A3, AltMicScheme),       new(Button.B3, AltMicScheme),       new(Button.C3, AltMicScheme),       new(Button.D3, AltMicScheme),       new(Button.E3, AltMicScheme),
+        new(Button.A2, RecordScheme),       new(Button.B2, RecordScheme),       new(Button.C2, RecordScheme),       new(Button.D2, RecordScheme),       new(Button.E2, RecordScheme),
+        new(Button.A1, MuteScheme),         new(Button.B1, MuteScheme),         new(Button.C1, MuteScheme),         new(Button.D1, MuteScheme),         new(Button.E1, MuteScheme),
+    ];
 
     #region Utilities
     private bool TogglePad(SevenBitNumber pad)

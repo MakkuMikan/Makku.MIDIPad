@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Makku.MIDI.APCMiniMk2\Makku.MIDI.APCMiniMk2.csproj" />
     <ProjectReference Include="..\Makku.MIDIPad.Core\Makku.MIDIPad.Core.csproj" />
   </ItemGroup>
 

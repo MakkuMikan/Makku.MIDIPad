@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Makku.APCMini.MK2\Makku.APCMini.MK2.csproj" />
     <ProjectReference Include="..\Makku.MIDIPad.Core\Makku.MIDIPad.Core.csproj" />
     <ProjectReference Include="..\Makku.MIDIPad.Voicemeeter\Makku.MIDIPad.Voicemeeter.csproj" />
   </ItemGroup>

@@ -4,7 +4,7 @@ using Melanchall.DryWetMidi.Common;
 
 namespace Makku.APCMini.MK2
 {
-    public interface IPadService : IMIDIDeviceService
+    public interface IPadService : INoteHandleService
     {
         void ResetAllPads();
         void ResetAllSLEDs();

@@ -1,4 +1,4 @@
-using Makku.APCMini.MK2;
+using Makku.MIDI.APCMiniMk2;
 using Makku.MIDIPad;
 
 var builder = Host.CreateApplicationBuilder(args);

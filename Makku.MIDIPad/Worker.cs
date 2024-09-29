@@ -1,6 +1,5 @@
-using Makku.APCMini.MK2;
-using Makku.APCMini.MK2.Constants;
-using Makku.APCMini.MK2.Helpers;
+using Makku.MIDI.APCMiniMk2;
+using Makku.MIDI.APCMiniMk2.Constants;
 using Makku.MIDIPad.Core;
 using Makku.MIDIPad.Voicemeeter;
 
@@ -8,9 +7,9 @@ namespace Makku.MIDIPad
 {
     public class Worker(ILogger<Worker> logger, APCMiniService apcMini) : BackgroundService
     {
-        private BasePage? MainPage { get; set; }
+        private IBasePage? MainPage { get; set; }
 
-        public void SetPage(BasePage page)
+        public void SetPage(IBasePage page)
         {
             MainPage?.Dispose();
 
@@ -20,10 +19,10 @@ namespace Makku.MIDIPad
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            apcMini.ResetAllPads();
-            apcMini.ResetAllSLEDs();
+            apcMini.ResetAllLEDs();
+            apcMini.ResetAllSingleLEDs();
 
-            SetPage(new VoicemeeterPage(apcMini, SetPage));
+            SetPage(new VoicemeeterPage<APCMiniService>(apcMini, SetPage));
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -39,10 +38,10 @@ namespace Makku.MIDIPad
                 logger.LogInformation("Worker stopped.");
             }
 
-            apcMini.ResetAllPads();
-            apcMini.ResetAllSLEDs();
+            apcMini.ResetAllLEDs();
+            apcMini.ResetAllSingleLEDs();
 
-            apcMini.SetSLED(SingleLEDButton.Shift, SingleLEDButtonState.On);
+            apcMini.SetSingleLED(SingleLEDButton.Shift, SingleLEDButtonState.On);
 
             apcMini.Dispose();
         }
