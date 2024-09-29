@@ -9,7 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Makku.APCMini.MK2
 {
-    public class APCMiniService : MIDIDeviceService
+    public class APCMiniService : MIDIDeviceService, IPadService
     {
         public APCMiniService() : base(GetInputDeviceName())
         {

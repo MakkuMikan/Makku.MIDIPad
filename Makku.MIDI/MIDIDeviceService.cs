@@ -3,7 +3,7 @@ using Melanchall.DryWetMidi.Multimedia;
 
 namespace Makku.MIDI
 {
-    public abstract class MIDIDeviceService : IDisposable
+    public abstract class MIDIDeviceService : IMIDIDeviceService
     {
         private readonly InputDevice _inputDevice;
         private readonly OutputDevice _outputDevice;

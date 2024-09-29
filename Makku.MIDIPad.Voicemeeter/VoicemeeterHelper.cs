@@ -11,6 +11,7 @@ namespace Makku.MIDIPad.Voicemeeter
         private readonly RemoteApiWrapper _remoteApi;
         public VoicemeeterType Type { get; }
         public string Version { get; }
+        public bool Connected => _remoteApi.IsParametersDirty() >= 0;
 
         public VoicemeeterHelper()
         {

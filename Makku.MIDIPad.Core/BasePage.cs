@@ -10,6 +10,7 @@ public abstract class BasePage : IDisposable
 {
     private readonly APCMiniService APCMini;
     protected readonly Action<BasePage> ChangePage;
+    protected bool Disposed = false;
 
     public BasePage(APCMiniService apcMini, Action<BasePage> changePage)
     {
@@ -26,6 +27,7 @@ public abstract class BasePage : IDisposable
     protected virtual void OnUnload()
     {
         APCMini.NoteOnEvent -= OnNoteOnEvent;
+        APCMini.NoteOffEvent -= OnNoteOffEvent;
     }
 
     public void Dispose()

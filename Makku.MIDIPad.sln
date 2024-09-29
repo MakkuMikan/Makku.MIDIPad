@@ -12,9 +12,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.MIDIPad", "Makku.MIDI
 		{77DA137E-F429-4F6E-B584-5FD7E72C9369} = {77DA137E-F429-4F6E-B584-5FD7E72C9369}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makku.MIDIPad.Voicemeeter", "Makku.MIDIPad.Voicemeeter\Makku.MIDIPad.Voicemeeter.csproj", "{E05F22C7-57A7-4888-8CE8-92F3402C2DFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.MIDIPad.Voicemeeter", "Makku.MIDIPad.Voicemeeter\Makku.MIDIPad.Voicemeeter.csproj", "{E05F22C7-57A7-4888-8CE8-92F3402C2DFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makku.MIDIPad.Core", "Makku.MIDIPad.Core\Makku.MIDIPad.Core.csproj", "{41CB97C1-9A17-4308-925D-81679A1757AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.MIDIPad.Core", "Makku.MIDIPad.Core\Makku.MIDIPad.Core.csproj", "{41CB97C1-9A17-4308-925D-81679A1757AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.Voicemeeter.Remote.Shorthand", "Makku.Voicemeeter.Remote.Shorthand\Makku.Voicemeeter.Remote.Shorthand.csproj", "{E80B11A1-4D1C-45D5-B366-6D0E7D50B98D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{41CB97C1-9A17-4308-925D-81679A1757AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41CB97C1-9A17-4308-925D-81679A1757AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41CB97C1-9A17-4308-925D-81679A1757AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E80B11A1-4D1C-45D5-B366-6D0E7D50B98D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E80B11A1-4D1C-45D5-B366-6D0E7D50B98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E80B11A1-4D1C-45D5-B366-6D0E7D50B98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E80B11A1-4D1C-45D5-B366-6D0E7D50B98D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

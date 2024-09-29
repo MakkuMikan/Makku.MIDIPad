@@ -37,6 +37,8 @@ namespace Makku.MIDIPad.Voicemeeter
 
         public override void Update()
         {
+            if (Disposed) return;
+
             base.Update();
         }
 
