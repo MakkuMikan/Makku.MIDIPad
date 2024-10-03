@@ -14,6 +14,10 @@ namespace Makku.MIDIPad.Core
         public bool State { get; set; }
         public SevenBitNumber Behaviour { get; set; }
 
+        public virtual void WhenOn() { }
+        public virtual void WhenOff() { }
+        public virtual bool Load() => State;
+
         public SingleLED(SevenBitNumber button, SevenBitNumber behaviour)
         {
             Button = button;

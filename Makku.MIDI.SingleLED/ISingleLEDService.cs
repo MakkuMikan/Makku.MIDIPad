@@ -1,4 +1,5 @@
-﻿using Melanchall.DryWetMidi.Core;
+﻿using Melanchall.DryWetMidi.Common;
+using Melanchall.DryWetMidi.Core;
 
 namespace Makku.MIDI.SingleLED
 {
@@ -7,19 +8,17 @@ namespace Makku.MIDI.SingleLED
     /// A single LED is an LED that can only be one color.
     /// It can have different behaviors.
     /// </summary>
-    /// <typeparam name="TIdent">The type of the LED identifier.</typeparam>
-    /// <typeparam name="TBehaviour">The type of the LED behavior.</typeparam>
-    public interface ISingleLEDService<TIdent, TBehaviour> : IMIDIService
+    public interface ISingleLEDService : IMIDIService
     {
         /// <summary>
         /// A list of all SingleLEDs.
         /// </summary>
-        TIdent[] AllSingleLEDs { get; }
+        SevenBitNumber[] AllSingleLEDs { get; }
 
         /// <summary>
         /// The default behavior of the LED.
         /// </summary>
-        TBehaviour DefaultSingleLEDBehaviour { get; }
+        SevenBitNumber DefaultSingleLEDBehaviour { get; }
 
         /// <summary>
         /// Sets the LED state.
@@ -31,18 +30,18 @@ namespace Makku.MIDI.SingleLED
         /// Resets the LED state.
         /// </summary>
         /// <param name="ident">The identifier of the LED.</param>
-        void ResetSingleLED(TIdent ident);
+        void ResetSingleLED(SevenBitNumber ident);
 
         /// <summary>
         /// Resets all LEDs.
         /// </summary>
         void ResetAllSingleLEDs();
 
-        public class SingleLEDState(TIdent identifier, TBehaviour behaviour)
+        public class SingleLEDState(SevenBitNumber identifier, SevenBitNumber behaviour)
         {
-            public TIdent Identifier { get; } = identifier;
+            public SevenBitNumber Identifier { get; } = identifier;
 
-            public TBehaviour Behaviour { get; } = behaviour;
+            public SevenBitNumber Behaviour { get; } = behaviour;
         }
     }
 }

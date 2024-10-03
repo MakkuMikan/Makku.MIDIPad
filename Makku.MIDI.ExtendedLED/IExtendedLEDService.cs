@@ -1,18 +1,19 @@
 ﻿using Makku.MIDI.LED;
+using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using System.Drawing;
 
 namespace Makku.MIDI.ExtendedLED
 {
-    public interface IExtendedLEDService<TIdent, TColor, TBehaviour> : ILEDService<TIdent, TColor>
+    public interface IExtendedLEDService : ILEDService
     {
-        TBehaviour DefaultLEDBehaviour { get; }
+        FourBitNumber DefaultLEDBehaviour { get; }
 
         void SetLED(ExtendedLEDState state);
 
-        public class ExtendedLEDState(TIdent led, TColor color, TBehaviour behaviour) : LEDState(led, color)
+        public class ExtendedLEDState(SevenBitNumber led, SevenBitNumber color, FourBitNumber behaviour) : LEDState(led, color)
         {
-            public TBehaviour Behaviour { get; set; } = behaviour;
+            public FourBitNumber Behaviour { get; set; } = behaviour;
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Makku.MIDIPad.Core
 {
     public class Buttons
     {
-        public Pads Pads { get; set; } = [];
-        public SingleLEDs SingleLEDs { get; set; } = [];
+        public virtual Pads Pads { get; set; } = [];
+        public virtual SingleLEDs SingleLEDs { get; set; } = [];
 
         public bool IsPad(SevenBitNumber button)
         {

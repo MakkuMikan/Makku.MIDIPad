@@ -6,7 +6,7 @@ using Melanchall.DryWetMidi.Core;
 
 namespace Makku.MIDIPad.Core;
 
-public abstract class BasePage<TIdent, TColor, TService> : IBasePage where TService : IMIDIService, ILEDService<TIdent, TColor>, IPadService<TIdent>
+public abstract class BasePage<TService> : IBasePage where TService : IMIDIService, ILEDService, IPadService
 {
     protected readonly TService Service;
     protected readonly Action<IBasePage> ChangePage;
@@ -40,7 +40,34 @@ public abstract class BasePage<TIdent, TColor, TService> : IBasePage where TServ
 
     public virtual void Update()
     {
-        // Override this method to update the values
+        if (Disposed)
+        {
+            return;
+        }
+
+        foreach (var pad in Buttons.Pads)
+        {
+            var newState = pad.Load();
+
+            if (newState != pad.State)
+            {
+                pad.State = newState;
+
+                // No need to trigger the WhenOn/WhenOff events here, as we are only updating the state of the pads, not from pad input.
+            }
+        }
+
+        foreach (var led in Buttons.SingleLEDs)
+        {
+            var newState = led.Load();
+
+            if (newState != led.State)
+            {
+                led.State = newState;
+
+                // No need to trigger the WhenOn/WhenOff events here, as we are only updating the state of the pads, not from pad input.
+            }
+        }
     }
 
     protected List<SevenBitNumber> HeldNotes { get; set; } = [];
@@ -59,7 +86,12 @@ public abstract class BasePage<TIdent, TColor, TService> : IBasePage where TServ
         OnButtonPressed(e.NoteOffEvent.NoteNumber, false);
     }
 
-    protected void OnButtonPressed(SevenBitNumber button, bool down = true)
+    protected virtual ILEDService.LEDState GetLEDState(Pad pad, bool on)
+    {
+        return new(pad.Button, on ? pad.Scheme.OnState.Colour : pad.Scheme.OffState.Colour);
+    }
+
+    protected virtual void OnButtonPressed(SevenBitNumber button, bool down = true)
     {
         if (Buttons.GetPad(button) is Pad pad)
         {
@@ -67,15 +99,14 @@ public abstract class BasePage<TIdent, TColor, TService> : IBasePage where TServ
             {
                 if (pad.State)
                 {
-                    
+                    Service.SetLED(GetLEDState(pad, true));
+                    pad.WhenOn();
                 }
-            }
-        }
-        else if (Buttons.IsSingleLED(button))
-        {
-            if (Buttons.SingleLEDs.FirstOrDefault(x => x.Button == button) is SingleLED led)
-            {
-                led.Toggle();
+                else
+                {
+                    Service.SetLED(GetLEDState(pad, false));
+                    pad.WhenOff();
+                }
             }
         }
     }

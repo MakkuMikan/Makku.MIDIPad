@@ -14,10 +14,18 @@ namespace Makku.MIDIPad.Core
         public bool State { get; set; }
         public PadScheme Scheme { get; set; }
 
+        public virtual void WhenOn() { }
+        public virtual void WhenOff() { }
+        public virtual bool Load() => State;
+
         public bool Toggle()
         {
             State = !State;
             return State;
+        }
+
+        public Pad()
+        {
         }
 
         public Pad(SevenBitNumber button, PadState onState, PadState offState)
