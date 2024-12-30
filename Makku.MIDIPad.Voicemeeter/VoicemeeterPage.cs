@@ -102,6 +102,13 @@ public class VoicemeeterPage<TService> : ExtendedSingleBasePage<TService> where 
         }
     };
 
+    private static SingleLEDScheme PTMScheme = new()
+    {
+        OnBehaviour = SingleLEDButtonState.On,
+        OffBehaviour = SingleLEDButtonState.Off,
+        TouchBehaviour = SingleLEDScheme.SingleLEDTouchBehaviour.Hold
+    };
+
     public VoicemeeterPage(TService apcMini, Action<IBasePage> ChangePage) : base(apcMini, ChangePage)
     {
         APCMini = apcMini;
@@ -124,6 +131,27 @@ public class VoicemeeterPage<TService> : ExtendedSingleBasePage<TService> where 
                 VM.Pad(Button.A3, AltMicScheme, "Strip[{0,2,3}].B2"),           VM.Pad(Button.B3, AltMicScheme, "Strip[1].B2"),         VM.Pad(Button.C3, AltMicScheme, "Strip[5].B2"),         VM.Pad(Button.D3, AltMicScheme, "Strip[6].B2"),         VM.Pad(Button.E3, AltMicScheme, "Strip[7].B2"),
                 VM.Pad(Button.A2, RecordScheme, "Strip[{0,2,3}].B3"),           VM.Pad(Button.B2, RecordScheme, "Strip[1].B3"),         VM.Pad(Button.C2, RecordScheme, "Strip[5].B3"),         VM.Pad(Button.D2, RecordScheme, "Strip[6].B3"),         VM.Pad(Button.E2, RecordScheme, "Strip[7].B3"),
                 VM.Pad(Button.A1, MuteScheme, "Strip[{0,2,3}].Mute"),           VM.Pad(Button.B1, MuteScheme, "Strip[1].Mute"),         VM.Pad(Button.C1, MuteScheme, "Strip[5].Mute"),         VM.Pad(Button.D1, MuteScheme, "Strip[6].Mute"),         VM.Pad(Button.E1, MuteScheme, "Strip[7].Mute"),
+            ],
+
+            VMSingleLEDs = [
+                VM.SLED(SingleLEDButton.Volume, PTMScheme, "Strip[{0,2,3}].Mute"),
+                VM.SLED(SingleLEDButton.Pan, PTMScheme, "Strip[1].Mute"),
+                VM.SLED(SingleLEDButton.Send, PTMScheme, "Strip[5].Mute"),
+                VM.SLED(SingleLEDButton.Device, PTMScheme, "Strip[6].Mute"),
+                VM.SLED(SingleLEDButton.Up, PTMScheme, "Strip[7].Mute"),
+
+                VM.SLED(SingleLEDButton.Down, "Bus[0].Mute"),
+                VM.SLED(SingleLEDButton.Left, "Bus[1].Mute"),
+                VM.SLED(SingleLEDButton.Right, "Bus[2].Mute"),
+
+                VM.SLED(SingleLEDButton.ClipStop, PTMScheme, "Command.Restart"),
+
+                VM.SLED(SingleLEDButton.Drum, "Bus[4].Mute"),
+                VM.SLED(SingleLEDButton.Note, "Bus[3].Mute"),
+
+                VM.SLED(SingleLEDButton.StopAllClips, PTMScheme, "Recorder.Stop"),
+
+                VM.SLED(SingleLEDButton.Shift).WithOnAction(GoToSoundboard)
             ]
         };
     }

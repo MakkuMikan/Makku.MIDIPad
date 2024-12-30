@@ -1,5 +1,4 @@
 ﻿using Makku.MIDI.APCMiniMk2.Constants;
-using Melanchall.DryWetMidi.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,7 @@ namespace Makku.MIDIPad.Core
     {
         public PadState OnState { get; set; }
         public PadState OffState { get; set; }
+        public PadTouchBehaviour TouchBehaviour { get; set; }
 
         public static PadScheme Default => new()
         {
@@ -24,7 +24,14 @@ namespace Makku.MIDIPad.Core
             {
                 Colour = Colour.Black,
                 Behaviour = Behaviour.OneHundredPercent
-            }
+            },
+            TouchBehaviour = PadTouchBehaviour.Toggle
         };
+
+        public enum PadTouchBehaviour
+        {
+            Toggle,
+            Hold
+        }
     }
 }

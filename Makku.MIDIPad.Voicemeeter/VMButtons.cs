@@ -10,7 +10,11 @@ namespace Makku.MIDIPad.Voicemeeter
 
         public VMPads VMPads { get; set; } = [];
 
+        public VMSingleLEDs VMSingleLEDs { get; set; } = [];
+
         public override Pads Pads => VMPads;
+
+        public override SingleLEDs SingleLEDs => VMSingleLEDs;
     }
 
     public class VMPads : List<VMPad>
@@ -76,11 +80,6 @@ namespace Makku.MIDIPad.Voicemeeter
                     _voicemeeterHelper.SetFloatParameter(value.Key, floatValue);
                 }
             }
-        }
-
-        public VMPad(VoicemeeterHelper vmHelper) : base()
-        {
-            _voicemeeterHelper = vmHelper;
         }
 
         public VMPad(VoicemeeterHelper vmHelper, SevenBitNumber button, PadScheme scheme) : base(button, scheme)
@@ -185,44 +184,25 @@ namespace Makku.MIDIPad.Voicemeeter
         {
             var parameters = ParseParameterPattern(pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
-
-            return new VMPad(vmHelper, button, scheme)
-            {
-                OnValues = onValues,
-                OffValues = offValues
-            };
+            return Pad(vmHelper, button, scheme, parameters);
         }
 
         public static VMPad Pad0(this VoicemeeterHelper vmHelper, SevenBitNumber button, PadScheme scheme, string pattern)
         {
-            var parameters = ParseParameterPattern(pattern);
+            var pad = Pad(vmHelper, button, scheme, pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            pad.State = false;
 
-            return new VMPad(vmHelper, button, scheme)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = false
-            };
+            return pad;
         }
 
         public static VMPad Pad1(this VoicemeeterHelper vmHelper, SevenBitNumber button, PadScheme scheme, string pattern)
         {
-            var parameters = ParseParameterPattern(pattern);
+            var pad = Pad(vmHelper, button, scheme, pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            pad.State = true;
 
-            return new VMPad(vmHelper, button, scheme)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = true
-            };
+            return pad;
         }
 
         public static VMPad Pad(this VoicemeeterHelper vmHelper, SevenBitNumber button, PadScheme scheme, object onValue, object offValue, string[] parameters)
@@ -239,72 +219,45 @@ namespace Makku.MIDIPad.Voicemeeter
 
         public static VMPad Pad0(this VoicemeeterHelper vmHelper, SevenBitNumber button, PadScheme scheme, object onValue, object offValue, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => onValue);
-            var offValues = parameters.ToDictionary(x => x, x => offValue);
+            var pad = Pad(vmHelper, button, scheme, onValue, offValue, parameters);
 
-            return new VMPad(vmHelper, button, scheme)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = false
-            };
+            pad.State = false;
+
+            return pad;
         }
 
         public static VMPad Pad1(this VoicemeeterHelper vmHelper, SevenBitNumber button, PadScheme scheme, object onValue, object offValue, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => onValue);
-            var offValues = parameters.ToDictionary(x => x, x => offValue);
+            var pad = Pad(vmHelper, button, scheme, onValue, offValue, parameters);
 
-            return new VMPad(vmHelper, button, scheme)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = true
-            };
+            pad.State = true;
+
+            return pad;
         }
 
         public static VMPad Pad(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, string pattern)
         {
             var parameters = ParseParameterPattern(pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
-
-            return new VMPad(vmHelper, button, colour)
-            {
-                OnValues = onValues,
-                OffValues = offValues
-            };
+            return Pad(vmHelper, button, colour, parameters);
         }
 
         public static VMPad Pad0(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, string pattern)
         {
-            var parameters = ParseParameterPattern(pattern);
+            var pad = Pad(vmHelper, button, colour, pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            pad.State = false;
 
-            return new VMPad(vmHelper, button, colour)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = false
-            };
+            return pad;
         }
 
         public static VMPad Pad1(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, string pattern)
         {
-            var parameters = ParseParameterPattern(pattern);
+            var pad = Pad(vmHelper, button, colour, pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            pad.State = true;
 
-            return new VMPad(vmHelper, button, colour)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = true
-            };
+            return pad;
         }
 
         public static VMPad Pad(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, string[] parameters)
@@ -321,28 +274,20 @@ namespace Makku.MIDIPad.Voicemeeter
 
         public static VMPad Pad0(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            var pad = Pad(vmHelper, button, colour, parameters);
 
-            return new VMPad(vmHelper, button, colour)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = false
-            };
+            pad.State = false;
+
+            return pad;
         }
 
         public static VMPad Pad1(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            var pad = Pad(vmHelper, button, colour, parameters);
 
-            return new VMPad(vmHelper, button, colour)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = true
-            };
+            pad.State = true;
+
+            return pad;
         }
 
         public static VMPad Pad(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, object onValue, object offValue, string[] parameters)
@@ -359,72 +304,45 @@ namespace Makku.MIDIPad.Voicemeeter
 
         public static VMPad Pad0(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, object onValue, object offValue, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => onValue);
-            var offValues = parameters.ToDictionary(x => x, x => offValue);
+            var pad = Pad(vmHelper, button, colour, onValue, offValue, parameters);
 
-            return new VMPad(vmHelper, button, colour)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = false
-            };
+            pad.State = false;
+
+            return pad;
         }
 
         public static VMPad Pad1(this VoicemeeterHelper vmHelper, SevenBitNumber button, SevenBitNumber colour, object onValue, object offValue, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => onValue);
-            var offValues = parameters.ToDictionary(x => x, x => offValue);
+            var pad = Pad(vmHelper, button, colour, onValue, offValue, parameters);
 
-            return new VMPad(vmHelper, button, colour)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = true
-            };
+            pad.State = true;
+
+            return pad;
         }
 
         public static VMPad Pad(this VoicemeeterHelper vmHelper, SevenBitNumber button, string pattern)
         {
             var parameters = ParseParameterPattern(pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
-
-            return new VMPad(vmHelper, button)
-            {
-                OnValues = onValues,
-                OffValues = offValues
-            };
+            return Pad(vmHelper, button, parameters);
         }
 
         public static VMPad Pad0(this VoicemeeterHelper vmHelper, SevenBitNumber button, string pattern)
         {
-            var parameters = ParseParameterPattern(pattern);
+            var pad = Pad(vmHelper, button, pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            pad.State = false;
 
-            return new VMPad(vmHelper, button)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = false
-            };
+            return pad;
         }
 
         public static VMPad Pad1(this VoicemeeterHelper vmHelper, SevenBitNumber button, string pattern)
         {
-            var parameters = ParseParameterPattern(pattern);
+            var pad = Pad(vmHelper, button, pattern);
 
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            pad.State = true;
 
-            return new VMPad(vmHelper, button)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = true
-            };
+            return pad;
         }
 
         public static VMPad Pad(this VoicemeeterHelper vmHelper, SevenBitNumber button, string[] parameters)
@@ -441,28 +359,20 @@ namespace Makku.MIDIPad.Voicemeeter
 
         public static VMPad Pad0(this VoicemeeterHelper vmHelper, SevenBitNumber button, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            var pad = Pad(vmHelper, button, parameters);
 
-            return new VMPad(vmHelper, button)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = false
-            };
+            pad.State = false;
+
+            return pad;
         }
 
         public static VMPad Pad1(this VoicemeeterHelper vmHelper, SevenBitNumber button, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => (object)1);
-            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+            var pad = Pad(vmHelper, button, parameters);
 
-            return new VMPad(vmHelper, button)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = true
-            };
+            pad.State = true;
+
+            return pad;
         }
 
         public static VMPad Pad(this VoicemeeterHelper vmHelper, SevenBitNumber button, object onValue, object offValue, string[] parameters)
@@ -479,28 +389,201 @@ namespace Makku.MIDIPad.Voicemeeter
 
         public static VMPad Pad0(this VoicemeeterHelper vmHelper, SevenBitNumber button, object onValue, object offValue, string[] parameters)
         {
-            var onValues = parameters.ToDictionary(x => x, x => onValue);
-            var offValues = parameters.ToDictionary(x => x, x => offValue);
+            var pad = Pad(vmHelper, button, onValue, offValue, parameters);
 
-            return new VMPad(vmHelper, button)
-            {
-                OnValues = onValues,
-                OffValues = offValues,
-                State = false
-            };
+            pad.State = false;
+
+            return pad;
         }
 
         public static VMPad Pad1(this VoicemeeterHelper vmHelper, SevenBitNumber button, object onValue, object offValue, string[] parameters)
         {
+            var pad = Pad(vmHelper, button, onValue, offValue, parameters);
+
+            pad.State = true;
+
+            return pad;
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button, SingleLEDScheme scheme)
+        {
+            return new VMSingleLED(vmHelper, button, scheme);
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button)
+        {
+            return new VMSingleLED(vmHelper, button);
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button, Dictionary<string, object> onValues, Dictionary<string, object> offValues)
+        {
+            return new VMSingleLED(vmHelper, button)
+            {
+                OnValues = onValues,
+                OffValues = offValues
+            };
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button, SingleLEDScheme scheme, Dictionary<string, object> onValues, Dictionary<string, object> offValues)
+        {
+            return new VMSingleLED(vmHelper, button, scheme)
+            {
+                OnValues = onValues,
+                OffValues = offValues
+            };
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button, string pattern)
+        {
+            var parameters = ParseParameterPattern(pattern);
+
+            return SLED(vmHelper, button, parameters);
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button, string[] parameters)
+        {
+            var onValues = parameters.ToDictionary(x => x, x => (object)1);
+            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+
+            return new VMSingleLED(vmHelper, button)
+            {
+                OnValues = onValues,
+                OffValues = offValues
+            };
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button, object onValue, object offValue, string[] parameters)
+        {
             var onValues = parameters.ToDictionary(x => x, x => onValue);
             var offValues = parameters.ToDictionary(x => x, x => offValue);
 
-            return new VMPad(vmHelper, button)
+            return new VMSingleLED(vmHelper, button)
             {
                 OnValues = onValues,
-                OffValues = offValues,
-                State = true
+                OffValues = offValues
             };
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button, SingleLEDScheme scheme, string pattern)
+        {
+            var parameters = ParseParameterPattern(pattern);
+
+            return SLED(vmHelper, button, scheme, parameters);
+        }
+
+        public static VMSingleLED SLED(this VoicemeeterHelper vmHelper, SevenBitNumber button, SingleLEDScheme scheme, string[] parameters)
+        {
+            var onValues = parameters.ToDictionary(x => x, x => (object)1);
+            var offValues = parameters.ToDictionary(x => x, x => (object)0);
+
+            return new VMSingleLED(vmHelper, button, scheme)
+            {
+                OnValues = onValues,
+                OffValues = offValues
+            };
+        }
+    }
+
+    public class VMSingleLEDs : List<VMSingleLED>
+    {
+        public static implicit operator SingleLEDs(VMSingleLEDs leds)
+        {
+            return [.. leds];
+        }
+    }
+
+    public class VMSingleLED : SingleLED
+    {
+        private readonly VoicemeeterHelper _voicemeeterHelper;
+
+        public SingleLED Base => this;
+
+        public KeyValuePair<string, object>? LoadParameter { get; set; }
+
+        public Dictionary<string, object> OnValues { get; set; } = [];
+        public Dictionary<string, object> OffValues { get; set; } = [];
+
+        public List<Action> OnActions { get; set; } = [];
+        public List<Action> OffActions { get; set; } = [];
+
+        public override bool Load()
+        {
+            if ((LoadParameter?.Value ?? OnValues.First().Value) is string strValue)
+            {
+                return _voicemeeterHelper.GetStringParameter(LoadParameter?.Key ?? OnValues.First().Key) == strValue;
+            }
+            else if ((LoadParameter?.Value ?? OnValues.First().Value) is float fltValue)
+            {
+                return _voicemeeterHelper.GetFloatParameter(LoadParameter?.Key ?? OnValues.First().Key) == fltValue;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override void WhenOn()
+        {
+            foreach (var value in OnValues)
+            {
+                if (value.Value is string intValue)
+                {
+                    _voicemeeterHelper.SetStringParameter(value.Key, intValue);
+                }
+                else if (value.Value is float floatValue)
+                {
+                    _voicemeeterHelper.SetFloatParameter(value.Key, floatValue);
+                }
+            }
+
+            foreach (var action in OnActions)
+            {
+                action();
+            }
+        }
+
+        public override void WhenOff()
+        {
+            foreach (var value in OffValues)
+            {
+                if (value.Value is string intValue)
+                {
+                    _voicemeeterHelper.SetStringParameter(value.Key, intValue);
+                }
+                else if (value.Value is float floatValue)
+                {
+                    _voicemeeterHelper.SetFloatParameter(value.Key, floatValue);
+                }
+            }
+
+            foreach (var action in OffActions)
+            {
+                action();
+            }
+        }
+
+        public VMSingleLED(VoicemeeterHelper vmHelper, SevenBitNumber button, SingleLEDScheme scheme) : base(button, scheme)
+        {
+            _voicemeeterHelper = vmHelper;
+        }
+
+        public VMSingleLED(VoicemeeterHelper vmHelper, SevenBitNumber button) : base(button)
+        {
+            _voicemeeterHelper = vmHelper;
+        }
+
+        public VMSingleLED WithOnAction(Action action)
+        {
+            OnActions.Add(action);
+
+            return this;
+        }
+
+        public VMSingleLED WithOffAction(Action action)
+        {
+            OffActions.Add(action);
+
+            return this;
         }
     }
 }
