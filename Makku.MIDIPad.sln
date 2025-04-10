@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.MIDIPad.Voicemeeter",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makku.MIDIPad.Core", "Makku.MIDIPad.Core\Makku.MIDIPad.Core.csproj", "{41CB97C1-9A17-4308-925D-81679A1757AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makku.Discord", "Makku.Discord\Makku.Discord.csproj", "{C14F0066-EAA2-499C-8E36-B3A89DE03623}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{41CB97C1-9A17-4308-925D-81679A1757AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41CB97C1-9A17-4308-925D-81679A1757AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41CB97C1-9A17-4308-925D-81679A1757AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C14F0066-EAA2-499C-8E36-B3A89DE03623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C14F0066-EAA2-499C-8E36-B3A89DE03623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C14F0066-EAA2-499C-8E36-B3A89DE03623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C14F0066-EAA2-499C-8E36-B3A89DE03623}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

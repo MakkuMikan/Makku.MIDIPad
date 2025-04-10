@@ -22,6 +22,9 @@ namespace Makku.MIDIPad.Voicemeeter.Helpers
 
         public static readonly SevenBitNumber RestartVM = SingleLEDButton.ClipStop;
 
+        public static readonly SevenBitNumber DiscordMute = SingleLEDButton.Solo;
+        public static readonly SevenBitNumber DiscordDeafen = SingleLEDButton.Mute;
+
         public static readonly SevenBitNumber Reverb = SingleLEDButton.RecArm;
         public static readonly SevenBitNumber DeepFry = SingleLEDButton.Select;
         public static readonly SevenBitNumber OutputA4Mute = SingleLEDButton.Drum;

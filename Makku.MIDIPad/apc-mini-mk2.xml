@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<midiDevice id="APCMiniMk2">
+    <names>
+        <name>APC Mini Mk2</name>
+    </names>
+    <padTypes>
+        <padType name="Pad">
+            <noteOnEvent noteNumber="pad" velocity="colour" channel="behaviour" />
+            <colours>
+                <colour name="Black" value="0" />
+                <colour name="DarkGray" value="1" />
+                <colour name="Gray" value="2" />
+                <colour name="White" value="3" />
+                <colour name="Red" value="4" />
+                <colour name="BrightRed" value="5" />
+                <colour name="DarkRed" value="6" />
+                <colour name="VeryDarkRed" value="7" />
+                <colour name="Orange" value="8" />
+                <colour name="BrightOrange" value="9" />
+                <colour name="DarkOrange" value="10" />
+                <colour name="VeryDarkOrange" value="11" />
+                <colour name="Yellow" value="12" />
+                <colour name="BrightYellow" value="13" />
+                <colour name="DarkYellow" value="14" />
+                <colour name="VeryDarkYellow" value="15" />
+                <colour name="LightGreen" value="16" />
+                <colour name="BrightGreen" value="17" />
+                <colour name="DarkGreen" value="18" />
+                <colour name="VeryDarkGreen" value="19" />
+                <colour name="Green" value="20" />
+                <colour name="BrightLimeGreen" value="21" />
+                <colour name="DarkLimeGreen" value="22" />
+                <colour name="VeryDarkLimeGreen" value="23" />
+                <colour name="LightLimeGreen" value="24" />
+                <colour name="BrightLightLimeGreen" value="25" />
+                <colour name="DarkLightLimeGreen" value="26" />
+                <colour name="VeryDarkLightLimeGreen" value="27" />
+                <colour name="LightAquaGreen" value="28" />
+                <colour name="BrightAquaGreen" value="29" />
+                <colour name="DarkAquaGreen" value="30" />
+                <colour name="VeryDarkAquaGreen" value="31" />
+                <colour name="LightMintGreen" value="32" />
+                <colour name="BrightMintGreen" value="33" />
+                <colour name="DarkMintGreen" value="34" />
+                <colour name="VeryDarkMintGreen" value="35" />
+                <colour name="LightSkyBlue" value="36" />
+                <colour name="BrightSkyBlue" value="37" />
+                <colour name="DarkSkyBlue" value="38" />
+                <colour name="VeryDarkSkyBlue" value="39" />
+                <colour name="LightBlue" value="40" />
+                <colour name="BrightBlue" value="41" />
+                <colour name="DarkBlue" value="42" />
+                <colour name="VeryDarkBlue" value="43" />
+                <colour name="LightPurple" value="44" />
+                <colour name="BrightPurple" value="45" />
+                <colour name="DarkPurple" value="46" />
+                <colour name="VeryDarkPurple" value="47" />
+                <colour name="LightViolet" value="48" />
+                <colour name="BrightViolet" value="49" />
+                <colour name="DarkViolet" value="50" />
+                <colour name="VeryDarkViolet" value="51" />
+                <colour name="LightMagenta" value="52" />
+                <colour name="BrightMagenta" value="53" />
+                <colour name="DarkMagenta" value="54" />
+                <colour name="VeryDarkMagenta" value="55" />
+                <colour name="LightPink" value="56" />
+                <colour name="BrightPink" value="57" />
+                <colour name="DarkPink" value="58" />
+                <colour name="VeryDarkPink" value="59" />
+                <colour name="LightCoral" value="60" />
+                <colour name="BrightCoral" value="61" />
+                <colour name="DarkCoral" value="62" />
+                <colour name="VeryDarkCoral" value="63" />
+                <colour name="LightBrown" value="64" />
+                <colour name="BrightBrown" value="65" />
+                <colour name="DarkBrown" value="66" />
+                <colour name="VeryDarkBrown" value="67" />
+                <colour name="LightOlive" value="68" />
+                <colour name="BrightOlive" value="69" />
+                <colour name="DarkOlive" value="70" />
+                <colour name="VeryDarkOlive" value="71" />
+                <colour name="LightRed" value="72" />
+                <colour name="BrightRed2" value="73" />
+                <colour name="DarkRed2" value="74" />
+                <colour name="VeryDarkRed2" value="75" />
+                <colour name="LightGreen2" value="76" />
+                <colour name="BrightGreen2" value="77" />
+                <colour name="DarkGreen2" value="78" />
+                <colour name="VeryDarkGreen2" value="79" />
+                <colour name="LightBlue2" value="80" />
+                <colour name="BrightBlue2" value="81" />
+                <colour name="DarkBlue2" value="82" />
+                <colour name="VeryDarkBlue2" value="83" />
+                <colour name="LightPurple2" value="84" />
+                <colour name="BrightPurple2" value="85" />
+                <colour name="DarkPurple2" value="86" />
+                <colour name="VeryDarkPurple2" value="87" />
+                <colour name="LightMagenta2" value="88" />
+                <colour name="BrightMagenta2" value="89" />
+                <colour name="DarkMagenta2" value="90" />
+                <colour name="VeryDarkMagenta2" value="91" />
+                <colour name="LightPink2" value="92" />
+                <colour name="BrightPink2" value="93" />
+                <colour name="DarkPink2" value="94" />
+                <colour name="VeryDarkPink2" value="95" />
+                <colour name="LightCoral2" value="96" />
+                <colour name="BrightCoral2" value="97" />
+                <colour name="DarkCoral2" value="98" />
+                <colour name="VeryDarkCoral2" value="99" />
+                <colour name="LightBrown2" value="100" />
+                <colour name="BrightBrown2" value="101" />
+                <colour name="DarkBrown2" value="102" />
+                <colour name="VeryDarkBrown2" value="103" />
+                <colour name="LightOlive2" value="104" />
+                <colour name="BrightOlive2" value="105" />
+                <colour name="DarkOlive2" value="106" />
+                <colour name="VeryDarkOlive2" value="107" />
+                <colour name="LightRed2" value="108" />
+                <colour name="BrightRed3" value="109" />
+                <colour name="DarkRed3" value="110" />
+                <colour name="VeryDarkRed3" value="111" />
+                <colour name="LightGreen3" value="112" />
+                <colour name="BrightGreen3" value="113" />
+                <colour name="DarkGreen3" value="114" />
+                <colour name="VeryDarkGreen3" value="115" />
+                <colour name="LightBlue3" value="116" />
+                <colour name="BrightBlue3" value="117" />
+                <colour name="DarkBlue3" value="118" />
+                <colour name="VeryDarkBlue3" value="119" />
+                <colour name="LightPurple3" value="120" />
+                <colour name="BrightPurple3" value="121" />
+                <colour name="DarkPurple3" value="122" />
+                <colour name="VeryDarkPurple3" value="123" />
+                <colour name="LightMagenta3" value="124" />
+            </colours>
+            <behaviours>
+                <behaviour name="TenPercent" value="0" />
+                <behaviour name="TwentyFivePercent" value="1" />
+                <behaviour name="FiftyPercent" value="2" />
+                <behaviour name="SixtyFivePercent" value="3" />
+                <behaviour name="SeventyFivePercent" value="4" />
+                <behaviour name="NinetyPercent" value="5" />
+                <behaviour name="OneHundredPercent" value="6" />
+                <behaviour name="PulsingSixteenths" value="7" />
+                <behaviour name="PulsingEighths" value="8" />
+                <behaviour name="PulsingQuarters" value="9" />
+                <behaviour name="PulsingHalfs" value="10" />
+                <behaviour name="BlinkingTwentyFourths" value="11" />
+                <behaviour name="BlinkingSixteenths" value="12" />
+                <behaviour name="BlinkingEighths" value="13" />
+                <behaviour name="BlinkingQuarters" value="14" />
+                <behaviour name="BlinkingHalfs" value="15" />
+            </behaviours>
+        </padType>
+        <padType name="SLED">
+            <noteOnEvent noteNumber="pad" velocity="behaviour" channel="0" />
+            <behaviours>
+                <behaviour name="Off" value="0" />
+                <behaviour name="On" value="1" />
+                <behaviour name="Blinking" value="2" />
+            </behaviours>
+        </padType>
+    </padTypes>
+    <pads>
+        <group type="Pad">
+            <pad id="A1" hex="00" />
+            <pad id="B1" hex="01" />
+            <pad id="C1" hex="02" />
+            <pad id="D1" hex="03" />
+            <pad id="E1" hex="04" />
+            <pad id="F1" hex="05" />
+            <pad id="G1" hex="06" />
+            <pad id="H1" hex="07" />
+            
+            <pad id="A2" hex="08" />
+            <pad id="B2" hex="09" />
+            <pad id="C2" hex="0A" />
+            <pad id="D2" hex="0B" />
+            <pad id="E2" hex="0C" />
+            <pad id="F2" hex="0D" />
+            <pad id="G2" hex="0E" />
+            <pad id="H2" hex="0F" />
+            
+            <pad id="A3" hex="10" />
+            <pad id="B3" hex="11" />
+            <pad id="C3" hex="12" />
+            <pad id="D3" hex="13" />
+            <pad id="E3" hex="14" />
+            <pad id="F3" hex="15" />
+            <pad id="G3" hex="16" />
+            <pad id="H3" hex="17" />
+            
+            <pad id="A4" hex="18" />
+            <pad id="B4" hex="19" />
+            <pad id="C4" hex="1A" />
+            <pad id="D4" hex="1B" />
+            <pad id="E4" hex="1C" />
+            <pad id="F4" hex="1D" />
+            <pad id="G4" hex="1E" />
+            <pad id="H4" hex="1F" />
+            
+            <pad id="A5" hex="20" />
+            <pad id="B5" hex="21" />
+            <pad id="C5" hex="22" />
+            <pad id="D5" hex="23" />
+            <pad id="E5" hex="24" />
+            <pad id="F5" hex="25" />
+            <pad id="G5" hex="26" />
+            <pad id="H5" hex="27" />
+            
+            <pad id="A6" hex="28" />
+            <pad id="B6" hex="29" />
+            <pad id="C6" hex="2A" />
+            <pad id="D6" hex="2B" />
+            <pad id="E6" hex="2C" />
+            <pad id="F6" hex="2D" />
+            <pad id="G6" hex="2E" />
+            <pad id="H6" hex="2F" />
+            
+            <pad id="A7" hex="30" />
+            <pad id="B7" hex="31" />
+            <pad id="C7" hex="32" />
+            <pad id="D7" hex="33" />
+            <pad id="E7" hex="34" />
+            <pad id="F7" hex="35" />
+            <pad id="G7" hex="36" />
+            <pad id="H7" hex="37" />
+            
+            <pad id="A8" hex="38" />
+            <pad id="B8" hex="39" />
+            <pad id="C8" hex="3A" />
+            <pad id="D8" hex="3B" />
+            <pad id="E8" hex="3C" />
+            <pad id="F8" hex="3D" />
+            <pad id="G8" hex="3E" />
+            <pad id="H8" hex="3F" />
+        </group>
+        <group type="SLED">
+            <pad id="Volume" hex="64" />
+            <pad id="Pan" hex="65" />
+            <pad id="Send" hex="66" />
+            <pad id="Device" hex="67" />
+            <pad id="Up" hex="68" />
+            <pad id="Down" hex="69" />
+            <pad id="Left" hex="6A" />
+            <pad id="Right" hex="6B" />
+            
+            <pad id="Clip Stop" hex="70" />
+            <pad id="Solo" hex="71" />
+            <pad id="Mute" hex="72" />
+            <pad id="Rec Arm" hex="73" />
+            <pad id="Select" hex="74" />
+            <pad id="Drum" hex="75" />
+            <pad id="Note" hex="76" />
+            <pad id="Stop All Clips" hex="77" />
+            
+            <pad id="Shift" hex="7A" />
+        </group>
+    </pads>
+</midiDevice>

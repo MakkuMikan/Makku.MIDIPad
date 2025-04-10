@@ -62,6 +62,8 @@ namespace Makku.MIDI
             }
         }
 
+        public abstract void Reset();
+
         public void Dispose()
         {
             _inputDevice.EventReceived -= OnEventReceived;

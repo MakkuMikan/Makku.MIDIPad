@@ -1,6 +1,7 @@
 ﻿using Makku.APCMini.MK2;
 using Makku.APCMini.MK2.Constants;
 using Makku.APCMini.MK2.Helpers;
+using Makku.Discord;
 using Makku.MIDIPad.Core;
 using Makku.MIDIPad.Voicemeeter.Helpers;
 using Melanchall.DryWetMidi.Common;
@@ -9,31 +10,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Makku.MIDI;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Makku.MIDIPad.Voicemeeter;
 
-public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage) : BasePage(APCMini, ChangePage)
+public class VoicemeeterPage(MIDIDeviceService service, Navigator navigator, DiscordService discordService) : BasePage(service, navigator)
 {
+    private APCMiniService APCMini = service as APCMiniService;
     private VoicemeeterHelper Voicemeeter;
 
-    private readonly PadStates PadStates = [];
-    private readonly SLEDStates SLEDStates = [];
-
-    private bool Disposed = false;
+    private readonly PadStates _padStates = [];
+    private readonly SLEDStates _sledStates = [];
 
     #region Utilities
     private bool TogglePad(SevenBitNumber pad)
     {
-        var state = PadStates.Toggle(pad);
+        var state = _padStates.Toggle(pad);
 
         APCMini.SetLED(state);
 
-        return PadStates.IsOn(pad);
+        return _padStates.IsOn(pad);
     }
 
     private void SetPad(SevenBitNumber pad, bool state)
     {
-        var newState = PadStates.Set(pad, state);
+        var newState = _padStates.Set(pad, state);
 
         if (newState != null)
         {
@@ -43,7 +45,7 @@ public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage
 
     private void SetPad(SevenBitNumber pad, bool state, FourBitNumber behaviour)
     {
-        var newState = PadStates.Set(pad, state);
+        var newState = _padStates.Set(pad, state);
 
         if (newState != null)
         {
@@ -53,16 +55,16 @@ public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage
 
     private bool ToggleSLED(SevenBitNumber led)
     {
-        var state = SLEDStates.Toggle(led);
+        var state = _sledStates.Toggle(led);
 
         APCMini.SetSLED(state);
 
-        return SLEDStates.IsOn(led);
+        return _sledStates.IsOn(led);
     }
 
     private void SetSLED(SevenBitNumber led, bool state)
     {
-        var newState = SLEDStates.Set(led, state);
+        var newState = _sledStates.Set(led, state);
 
         if (newState != null)
         {
@@ -85,7 +87,7 @@ public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage
     {
         Disposed = true;
 
-        Voicemeeter.Dispose();
+        Voicemeeter?.Dispose();
 
         base.OnUnload();
     }
@@ -102,51 +104,54 @@ public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage
         if (!force && !Voicemeeter.ParametersIsDirty()) return;
 
         List<MatrixPadState> padStates = [
-            PadStates.Set(Pads.InputA1Mute, Voicemeeter.GetFloatParameter("Strip[0].Mute") == 1),
-            PadStates.Set(Pads.InputA2Mute, Voicemeeter.GetFloatParameter("Strip[1].Mute") == 1),
-            PadStates.Set(Pads.InputB1Mute, Voicemeeter.GetFloatParameter("Strip[5].Mute") == 1),
-            PadStates.Set(Pads.InputB2Mute, Voicemeeter.GetFloatParameter("Strip[6].Mute") == 1),
-            PadStates.Set(Pads.InputB3Mute, Voicemeeter.GetFloatParameter("Strip[7].Mute") == 1),
+            _padStates.Set(Pads.InputA1Mute, Voicemeeter.GetFloatParameter("Strip[0].Mute") == 1),
+            _padStates.Set(Pads.InputA2Mute, Voicemeeter.GetFloatParameter("Strip[1].Mute") == 1),
+            _padStates.Set(Pads.InputB1Mute, Voicemeeter.GetFloatParameter("Strip[5].Mute") == 1),
+            _padStates.Set(Pads.InputB2Mute, Voicemeeter.GetFloatParameter("Strip[6].Mute") == 1),
+            _padStates.Set(Pads.InputB3Mute, Voicemeeter.GetFloatParameter("Strip[7].Mute") == 1),
 
-            PadStates.Set(Pads.InputA2Record, Voicemeeter.GetFloatParameter("Strip[0].B3") == 1),
-            PadStates.Set(Pads.InputA1Record, Voicemeeter.GetFloatParameter("Strip[1].B3") == 1),
-            PadStates.Set(Pads.InputB1Record, Voicemeeter.GetFloatParameter("Strip[5].B3") == 1),
-            PadStates.Set(Pads.InputB2Record, Voicemeeter.GetFloatParameter("Strip[6].B3") == 1),
-            PadStates.Set(Pads.InputB3Record, Voicemeeter.GetFloatParameter("Strip[7].B3") == 1),
+            _padStates.Set(Pads.InputA2Record, Voicemeeter.GetFloatParameter("Strip[0].B3") == 1),
+            _padStates.Set(Pads.InputA1Record, Voicemeeter.GetFloatParameter("Strip[1].B3") == 1),
+            _padStates.Set(Pads.InputB1Record, Voicemeeter.GetFloatParameter("Strip[5].B3") == 1),
+            _padStates.Set(Pads.InputB2Record, Voicemeeter.GetFloatParameter("Strip[6].B3") == 1),
+            _padStates.Set(Pads.InputB3Record, Voicemeeter.GetFloatParameter("Strip[7].B3") == 1),
 
-            PadStates.Set(Pads.InputA2AltMic, Voicemeeter.GetFloatParameter("Strip[0].B2") == 1),
-            PadStates.Set(Pads.InputA1AltMic, Voicemeeter.GetFloatParameter("Strip[1].B2") == 1),
-            PadStates.Set(Pads.InputB1AltMic, Voicemeeter.GetFloatParameter("Strip[5].B2") == 1),
-            PadStates.Set(Pads.InputB2AltMic, Voicemeeter.GetFloatParameter("Strip[6].B2") == 1),
-            PadStates.Set(Pads.InputB3AltMic, Voicemeeter.GetFloatParameter("Strip[7].B2") == 1),
+            _padStates.Set(Pads.InputA2AltMic, Voicemeeter.GetFloatParameter("Strip[0].B2") == 1),
+            _padStates.Set(Pads.InputA1AltMic, Voicemeeter.GetFloatParameter("Strip[1].B2") == 1),
+            _padStates.Set(Pads.InputB1AltMic, Voicemeeter.GetFloatParameter("Strip[5].B2") == 1),
+            _padStates.Set(Pads.InputB2AltMic, Voicemeeter.GetFloatParameter("Strip[6].B2") == 1),
+            _padStates.Set(Pads.InputB3AltMic, Voicemeeter.GetFloatParameter("Strip[7].B2") == 1),
 
-            PadStates.Set(Pads.InputA2Mic, Voicemeeter.GetFloatParameter("Strip[0].B1") == 1),
-            PadStates.Set(Pads.InputA1Mic, Voicemeeter.GetFloatParameter("Strip[1].B1") == 1),
-            PadStates.Set(Pads.InputB1Mic, Voicemeeter.GetFloatParameter("Strip[5].B1") == 1),
-            PadStates.Set(Pads.InputB2Mic, Voicemeeter.GetFloatParameter("Strip[6].B1") == 1),
-            PadStates.Set(Pads.InputB3Mic, Voicemeeter.GetFloatParameter("Strip[7].B1") == 1),
+            _padStates.Set(Pads.InputA2Mic, Voicemeeter.GetFloatParameter("Strip[0].B1") == 1),
+            _padStates.Set(Pads.InputA1Mic, Voicemeeter.GetFloatParameter("Strip[1].B1") == 1),
+            _padStates.Set(Pads.InputB1Mic, Voicemeeter.GetFloatParameter("Strip[5].B1") == 1),
+            _padStates.Set(Pads.InputB2Mic, Voicemeeter.GetFloatParameter("Strip[6].B1") == 1),
+            _padStates.Set(Pads.InputB3Mic, Voicemeeter.GetFloatParameter("Strip[7].B1") == 1),
 
-            PadStates.Set(Pads.InputA2Speakers, Voicemeeter.GetFloatParameter("Strip[0].A5") == 1),
-            PadStates.Set(Pads.InputA1Speakers, Voicemeeter.GetFloatParameter("Strip[1].A5") == 1),
-            PadStates.Set(Pads.InputB1Speakers, Voicemeeter.GetFloatParameter("Strip[5].A5") == 1),
-            PadStates.Set(Pads.InputB2Speakers, Voicemeeter.GetFloatParameter("Strip[6].A5") == 1),
-            PadStates.Set(Pads.InputB3Speakers, Voicemeeter.GetFloatParameter("Strip[7].A5") == 1),
+            _padStates.Set(Pads.InputA2Speakers, Voicemeeter.GetFloatParameter("Strip[0].A5") == 1),
+            _padStates.Set(Pads.InputA1Speakers, Voicemeeter.GetFloatParameter("Strip[1].A5") == 1),
+            _padStates.Set(Pads.InputB1Speakers, Voicemeeter.GetFloatParameter("Strip[5].A5") == 1),
+            _padStates.Set(Pads.InputB2Speakers, Voicemeeter.GetFloatParameter("Strip[6].A5") == 1),
+            _padStates.Set(Pads.InputB3Speakers, Voicemeeter.GetFloatParameter("Strip[7].A5") == 1),
 
-            PadStates.Set(Pads.InputA2Headphones, Voicemeeter.GetFloatParameter("Strip[0].A2") == 1),
-            PadStates.Set(Pads.InputA1Headphones, Voicemeeter.GetFloatParameter("Strip[1].A2") == 1),
-            PadStates.Set(Pads.InputB1Headphones, Voicemeeter.GetFloatParameter("Strip[5].A2") == 1),
-            PadStates.Set(Pads.InputB2Headphones, Voicemeeter.GetFloatParameter("Strip[6].A2") == 1),
-            PadStates.Set(Pads.InputB3Headphones, Voicemeeter.GetFloatParameter("Strip[7].A2") == 1),
+            _padStates.Set(Pads.InputA2Headphones, Voicemeeter.GetFloatParameter("Strip[0].A2") == 1),
+            _padStates.Set(Pads.InputA1Headphones, Voicemeeter.GetFloatParameter("Strip[1].A2") == 1),
+            _padStates.Set(Pads.InputB1Headphones, Voicemeeter.GetFloatParameter("Strip[5].A2") == 1),
+            _padStates.Set(Pads.InputB2Headphones, Voicemeeter.GetFloatParameter("Strip[6].A2") == 1),
+            _padStates.Set(Pads.InputB3Headphones, Voicemeeter.GetFloatParameter("Strip[7].A2") == 1),
 
-            PadStates.Set(Pads.NvidiaBroadcastToggle, Voicemeeter.GetFloatParameter("Strip[2].Gain") == -60),
+            _padStates.Set(Pads.NvidiaBroadcastToggle, Voicemeeter.GetFloatParameter("Strip[2].Gain") == -60),
         ];
 
         List<SingleLEDState> singleLEDStates = [
-            SLEDStates.Set(SLEDs.OutputA1Mute, Voicemeeter.GetFloatParameter("Bus[0].Mute") == 1),
-            SLEDStates.Set(SLEDs.OutputA2Mute, Voicemeeter.GetFloatParameter("Bus[1].Mute") == 1),
-            SLEDStates.Set(SLEDs.OutputA3Mute, Voicemeeter.GetFloatParameter("Bus[2].Mute") == 1),
-            SLEDStates.Set(SLEDs.OutputA4Mute, Voicemeeter.GetFloatParameter("Bus[3].Mute") == 1),
-            SLEDStates.Set(SLEDs.OutputA5Mute, Voicemeeter.GetFloatParameter("Bus[4].Mute") == 1),
+            _sledStates.Set(SLEDs.OutputA1Mute, Voicemeeter.GetFloatParameter("Bus[0].Mute") == 1),
+            _sledStates.Set(SLEDs.OutputA2Mute, Voicemeeter.GetFloatParameter("Bus[1].Mute") == 1),
+            _sledStates.Set(SLEDs.OutputA3Mute, Voicemeeter.GetFloatParameter("Bus[2].Mute") == 1),
+            _sledStates.Set(SLEDs.OutputA4Mute, Voicemeeter.GetFloatParameter("Bus[3].Mute") == 1),
+            _sledStates.Set(SLEDs.OutputA5Mute, Voicemeeter.GetFloatParameter("Bus[4].Mute") == 1),
+
+            _sledStates.Set(SLEDs.DiscordMute, discordService.IsMuted ?? false),
+            _sledStates.Set(SLEDs.DiscordDeafen, discordService.IsDeafened ?? false),
         ];
 
         foreach (var padState in padStates.Where(x => x != null))
@@ -174,7 +179,7 @@ public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage
 
     private void GoToSoundboard()
     {
-        ChangePage(new SoundboardPage(APCMini, ChangePage));
+        ChangePage<SoundboardPage>();
     }
     #endregion Navigation
 
@@ -731,4 +736,13 @@ public class VoicemeeterPage(APCMiniService APCMini, Action<BasePage> ChangePage
         Console.WriteLine($"Nvidia Broadcast is now {(newState ? "disabled" : "enabled")}");
     }
     #endregion Nvidia Broadcast Toggle
+}
+
+public static class VoicemeeterPageServiceExtensions
+{
+    public static IServiceCollection AddVoicemeeterPage(this IServiceCollection services)
+    {
+        services.AddScoped<VoicemeeterPage>();
+        return services;
+    }
 }

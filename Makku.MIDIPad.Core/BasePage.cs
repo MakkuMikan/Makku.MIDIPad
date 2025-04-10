@@ -6,16 +6,15 @@ using Melanchall.DryWetMidi.Core;
 
 namespace Makku.MIDIPad.Core;
 
-public abstract class BasePage : IDisposable
+public abstract class BasePage(MIDIDeviceService service, Navigator navigator) : IDisposable
 {
-    private readonly APCMiniService APCMini;
-    protected readonly Action<BasePage> ChangePage;
+    protected readonly APCMiniService APCMini = service as APCMiniService;
+    protected readonly Navigator _navigator = navigator;
     protected bool Disposed = false;
 
-    public BasePage(APCMiniService apcMini, Action<BasePage> changePage)
+    public virtual void ChangePage<TPage>() where TPage : BasePage
     {
-        APCMini = apcMini;
-        ChangePage = changePage;
+        _navigator.SetPage<TPage>();
     }
 
     public virtual void OnLoad()

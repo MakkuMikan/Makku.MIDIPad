@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Makku.Discord\Makku.Discord.csproj" />
     <ProjectReference Include="..\Makku.MIDIPad.Core\Makku.MIDIPad.Core.csproj" />
   </ItemGroup>
 

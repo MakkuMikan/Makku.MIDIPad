@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<midiConfig>
+    <services>
+        <service name="Voicemeeter" provider="Makku.MIDIPad.Voicemeeter" />
+    </services>
+    <devices>
+        <device name="APC Mini Mk2" type="APCMiniMk2">
+            <schemes>
+                <group type="Pad">
+                    <scheme id="Mute">
+                        <on colour="BrightRed" behaviour="OneHundredPercent" />
+                        <off colour="BrightGreen" behaviour="OneHundredPercent" />
+                    </scheme>
+                    <scheme id="Record">
+                        <on colour="BrightMagenta" behaviour="OneHundredPercent" />
+                        <off colour="BrightMagenta" behaviour="TenPercent" />
+                    </scheme>
+                    <scheme id="AltMic">
+                        <on colour="BrightYellow" behaviour="OneHundredPercent" />
+                        <off colour="BrightYellow" behaviour="TenPercent" />
+                    </scheme>
+                    <scheme id="Mic">
+                        <on colour="BrightBlue" behaviour="OneHundredPercent" />
+                        <off colour="BrightBlue" behaviour="TenPercent" />
+                    </scheme>
+                    <scheme id="Speakers">
+                        <on colour="BrightLimeGreen" behaviour="OneHundredPercent" />
+                        <off colour="BrightLimeGreen" behaviour="TenPercent" />
+                    </scheme>
+                    <scheme id="Headphones">
+                        <on colour="BrightOrange" behaviour="OneHundredPercent" />
+                        <off colour="BrightOrange" behaviour="TenPercent" />
+                    </scheme>
+                    
+                    <scheme id="Nvidia Broadcast">
+                        <on colour="BrightGreen" behaviour="OneHundredPercent" />
+                        <off colour="BrightGreen" behaviour="TenPercent" />
+                    </scheme>
+                </group>
+                
+                <scheme id="PTM" type="SLED">
+                    <on behaviour="Blinking" />
+                    <off behaviour="Off" />
+                </scheme>
+            </schemes>
+            <pages>
+                <page name="Voicemeeter" service="Voicemeeter">
+                    <pads>
+                        <group name="Mute"
+                               behaviour="toggle"
+                               scheme="Mute"
+                               load.command="GetBool"
+                               toggle.command="SetBool">
+                            <pad id="A8" name="A1 Mute">
+                                <load parameter="Strip[0].Mute" />
+                                <toggle parameter="Strip[0].Mute" />
+                            </pad>
+                            <pad id="B8" name="A2 Mute">
+                                <load parameter="Strip[1].Mute" />
+                                <toggle parameter="Strip[1].Mute" />
+                            </pad>
+                        </group>
+                        
+                        <group name="PTM" behaviour="hold" scheme="PTM" command="SetBool">
+                            <pad id="Volume" name="A1 PTM">
+                                <hold parameter="Strip[0].Mute" />
+                            </pad>
+                            <pad id="Pan" name="A2 PTM">
+                                <hold parameter="Strip[1].Mute" />
+                            </pad>
+                        </group>
+                    </pads>
+                </page>
+            </pages>
+        </device>
+    </devices>
+</midiConfig>
